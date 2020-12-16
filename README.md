@@ -8,11 +8,11 @@ Generate custom template code for sklearn, using a web UI built with streamlit. 
   <h2><a href="https://mlcodegenerator.herokuapp.com">MLCodeGenerator Demo</a></h2>
 </div>
 
-<div align="center" style="text-align:center">
+
 [![Star](https://img.shields.io/github/stars/ulgacemre/MLCodeGenerator?style=social)](https://github.com/ulgacemre/MLCodeGenerator)
 [![Follow](https://img.shields.io/twitter/follow/EmreUlgac?label=Follow&style=social)](https://twitter.com/EmreUlgac)
 [![Buy me a book](https://img.shields.io/badge/Buy%20me%20a%20coffee--yellow.svg?logo=buy-me-a-coffee&logoColor=orange&style=social)](https://www.buymeacoffee.com/ulgacemre)
-</div>
+
 
 Generate your machine learning code:
 
