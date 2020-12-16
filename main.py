@@ -80,10 +80,10 @@ if inputs["task"] == "Classification":
     col1, col2, col3 = st.beta_columns(3)
     open_colab = col1.button("🚀 Open in Colab")  # logic handled further down
     with col2:
-        utils.download_button(code, "generated-code.py", "🐍 Download (.py)")
+        utils.download_button(code, "code.py", "🐍 Download (.py)")
     with col3:
         utils.download_button(
-            notebook, "generated-notebook.ipynb", "📓 Download (.ipynb)"
+            notebook, "notebook.ipynb", "📓 Download (.ipynb)"
         )
     colab_error = st.empty()
 

@@ -18,7 +18,7 @@ MODELS = {
     },
 }
 
-classifier_list = ["Random forest","Support vectors","K-nearest neighbors","Decision tree","Logistic Regression"]
+classifier_list = ["Random forest","Support vectors","XGBclassifier","Decision tree","Logistic Regression"]
 
 
 
@@ -42,7 +42,7 @@ def show():
 
 
             st.write("## Model")
-            framework = st.selectbox('Choose Classfier',classifier_list)
+            framework = st.multiselect('Choose Classfier',classifier_list)
             inputs["classifier"] = framework
 
             st.write("## Input Type")

@@ -14,6 +14,7 @@
 
 import numpy as np
 import pandas as pd
+import seaborn as sns
 import sklearn
 import pickle
 
@@ -22,6 +23,10 @@ import pickle
 # if there is a different seperator use sep=";" parameter
 df = pd.read_csv("File Path")
 df.head()
+
+df.info()
+
+df.describe()
 
 {% elif input_type == "pickle" %}
 # Input File Path
@@ -66,18 +71,58 @@ X_test = scaler.transform(X_test)
 
 
 {{ header("Model") }}
-{% if classifier == "Random forest" %}
+{% if "Random forest" in classifier  %}
 from sklearn.ensemble import RandomForestClassifier
 model = RandomForestClassifier(n_estimators=100)
 model.fit(X_train, y_train)
-
+y_pred = model.predict(X_test)
 {% endif %}
+
+{% if "Decision tree" in classifier %}
+from sklearn.tree import DecisionTreeClassifier
+model = DecisionTreeClassifier()
+model.fit(X_train,y_train)
+y_pred = model.predict(X_test)
+{% endif %}
+
+{% if "Logistic Regression" in classifier %}
+from sklearn.linear_model import LogisticRegression
+model = LogisticRegression()
+model.fit(X_train,y_train)
+y_pred = model.predict(X_test)
+{% endif %}
+
+{% if "Support vectors" in classifier %}
+from sklearn.svm import SVC
+model = SVC()
+model.fit(X_train,y_train)
+y_pred = model.predict(X_test)
+{% endif %}
+
+{% if "XGBclassifier" in classifier %}
+pip install xgboost
+from xgboost import XGBClassifier
+model = XGBClassifier()
+model.fit(X_train, y_train)
+y_pred = model.predict(X_test)
+{% endif %}
+
 
 
 {{ header("Evaluation") }}
 
+{% if "Metrics" in evaluations  %}
+def eval_metrics(actual, pred):
+    rmse = np.sqrt(mean_squared_error(actual, pred))
+    mae = mean_absolute_error(actual, pred)
+    mse = mean_squared_error(actual, pred)
+    score = r2_score(actual, pred)
+    return print("r2_score:", score, "\n","mae:", mae, "\n","mse:",mse, "\n","rmse:",rmse)
+
+eval_metrics(y_test, y_pred)
+{% endif %}
 {% if "Confusion Matrix" in evaluations  %}
-y_pred = rfc.predict(X_test)
+
 cnf_matrix = confusion_matrix(y_test,y_pred)
 #Seaborn Visualization
 sns.heatmap(cnf_matrix, annot=True, cmap="YlGnBu",fmt='d')
@@ -85,4 +130,15 @@ plt.ylabel('Actual Label')
 plt.xlabel('Predicted Label')
 
 {% endif %}
+{% if "Classification Report" in evaluations  %}
+
+print(classification_report(y_test,y_pred))
+
+{% endif %}
+
+
+
+
+
+
 
