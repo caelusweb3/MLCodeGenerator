@@ -1,4 +1,4 @@
-<img src="https://ibb.co/mGVqJJd" />
+<img src="https://i.ibb.co/9NkTnnB/code.png" alt="code" border="0" style="text-align:center">
 
 # MLCodeGenerator
 
