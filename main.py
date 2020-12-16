@@ -40,3 +40,4 @@ df
 
 # Display sidebar and get user inputs.
 inputs = sidebar.show()
+inputs
