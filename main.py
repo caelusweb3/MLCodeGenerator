@@ -3,13 +3,34 @@ import streamlit as st
 # working with sample data.
 import numpy as np
 import pandas as pd
+from jinja2 import Environment, FileSystemLoader
+import uuid
+import os
+from PIL import Image
+import sidebar
 
+image = Image.open('images/code.png')
+
+st.image(image,
+         width=80)
+st.title("Machine Learning Code Generator")
 
 """
-# My first app
-Here's our first attempt at using data to create a table:
+
+[![Star](https://img.shields.io/github/stars/ulgacemre/MLCodeGenerator?style=social)](https://github.com/ulgacemre/MLCodeGenerator)
+&nbsp[![Follow](https://img.shields.io/twitter/follow/EmreUlgac?label=Follow&style=social)](https://twitter.com/EmreUlgac)
+&nbsp[![Buy me a book](https://img.shields.io/badge/Buy%20me%20a%20coffee--yellow.svg?logo=buy-me-a-coffee&logoColor=orange&style=social)](https://www.buymeacoffee.com/ulgacemre)
 """
 
+
+st.markdown("<br>", unsafe_allow_html=True)
+"""Generate your machine learning code:
+
+1. Specify parameters from sidebar
+2. Training code will be generated below
+3. Download code or run on colab
+---
+"""
 df = pd.DataFrame({
   'first column': [1, 2, 3, 4],
   'second column': [10, 20, 30, 40]
@@ -17,8 +38,5 @@ df = pd.DataFrame({
 
 df
 
-option = st.sidebar.selectbox(
-    'Which number do you like best?',
-     df['first column'])
-
-'You selected:', option
+# Display sidebar and get user inputs.
+inputs = sidebar.show()
