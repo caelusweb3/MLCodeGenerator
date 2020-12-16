@@ -1,5 +1,8 @@
+<div align="center" style="text-align:center">
 <img src="https://i.ibb.co/9NkTnnB/code.png" alt="code" border="0" style="text-align:center">
+  </div>
 # MLCodeGenerator
+
 Generate custom template code for sklearn, using a web UI built with streamlit. MLCodeGenerator provides multiple options for preprocessing, model, training, and visualization. It exports to .py, Jupyter Notebook, or Google Colab(not implemented yet). The perfect tool to start your next machine learning project!
 
 <div align="center" style="text-align:center">
