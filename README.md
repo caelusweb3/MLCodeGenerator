@@ -1,3 +1,5 @@
+<img src="https://ibb.co/mGVqJJd" />
+
 # MLCodeGenerator
 
 Generate custom template code for sklearn, using a web UI built with streamlit. MLCodeGenerator provides multiple options for preprocessing, model, training, and visualization. It exports to .py, Jupyter Notebook, or Google Colab(not implemented yet). The perfect tool to start your next machine learning project!
