@@ -8,6 +8,7 @@ import uuid
 import os
 from PIL import Image
 import sidebar
+import utils
 
 image = Image.open('images/code.png')
 
@@ -31,13 +32,51 @@ st.markdown("<br>", unsafe_allow_html=True)
 3. Download code or run on colab
 ---
 """
-df = pd.DataFrame({
-  'first column': [1, 2, 3, 4],
-  'second column': [10, 20, 30, 40]
-})
 
-df
 
 # Display sidebar and get user inputs.
 inputs = sidebar.show()
 inputs
+
+if inputs["task"] == "Classification":
+
+    # Generate code and notebook based on jinja template.
+    env = Environment(
+        loader=FileSystemLoader("templates"), trim_blocks=True, lstrip_blocks=True,
+    )
+    template = env.get_template(f"classifier.py.jinja")
+    code = template.render(header=utils.code_header, notebook=False, **inputs)
+    notebook_code = template.render(
+        header=utils.notebook_header, notebook=True, **inputs
+    )
+    notebook = utils.to_notebook(notebook_code)
+
+    # Display donwload/open buttons.
+    st.write("")  # add vertical space
+    col1, col2, col3 = st.beta_columns(3)
+    open_colab = col1.button("🚀 Open in Colab")  # logic handled further down
+    with col2:
+        utils.download_button(code, "generated-code.py", "🐍 Download (.py)")
+    with col3:
+        utils.download_button(
+            notebook, "generated-notebook.ipynb", "📓 Download (.ipynb)"
+        )
+    colab_error = st.empty()
+
+    # Display code.
+    # TODO: Think about writing Installs on extra line here.
+    st.code(code)
+
+    # Handle "Open Colab" button. Down here because to open the new web page, it
+    # needs to create a temporary element, which we don't want to show above.
+    if open_colab:
+        if colab_enabled:
+            colab_link = add_to_colab(notebook)
+            utils.open_link(colab_link)
+        else:
+            colab_error.error(
+                """
+                **Colab support is disabled.** (If you are hosting this: Create a Github 
+                repo to store notebooks and register it via a .env file)
+                """
+            )

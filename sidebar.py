@@ -39,9 +39,7 @@ def show():
                 "Coming soon! [Mail me](mailto:johannes.rieke@gmail.com) what you need."
             )
         else:
-            # st.write(
-            #     "Classify an image into one out of several classes, based on the image content (e.g. 'cat' or 'dog')."
-            # )
+
 
             st.write("## Model")
             framework = st.multiselect('Choose Classfier',classifier_list)
@@ -51,22 +49,14 @@ def show():
             input_type = st.selectbox('Choose Input Type',['csv','pickle'])
             inputs["input_type"] = input_type
 
+            st.write("## Scaler ")
+            scaler_type = st.selectbox('Choose Scaler',['Standard Scaler','Min Max Scaler'])
+            inputs["scaler_type"] = scaler_type
+
             st.write("## Evaluation")
             evaluations = st.multiselect('Choose Evaluations',["Confusion Matrix","Classification Report","Metrics"])
             st.checkbox('YellowBrick Visualization')
             inputs["evaluations"] = evaluations
             
-
-        # "Which plots do you want to add?"
-        # # TODO: Show some examples.
-        # st.checkbox("Sample images", True)
-        # st.checkbox("Confusion matrix", True)
-
-        # "## Saving"
-        # st.checkbox("Save config file", True)
-        # st.checkbox("Save console output", True)
-        # st.checkbox("Save finished model", True)
-        # if model in TORCH_MODELS:
-        #     st.checkbox("Save checkpoint after each epoch", True)
 
     return inputs
