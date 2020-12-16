@@ -38,7 +38,7 @@ st.markdown("<br>", unsafe_allow_html=True)
 
 # Display sidebar and get user inputs.
 inputs = sidebar.show()
-inputs
+
 
 # Set up github access for "Open in Colab" button.
 load_dotenv()  # load environment variables from .env file
