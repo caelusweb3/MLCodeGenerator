@@ -17,16 +17,20 @@ import pandas as pd
 import sklearn
 import pickle
 
+{{ header("Load Data") }}
 {% if input_type == "csv" %}
 # if there is a different seperator use sep=";" parameter
 df = pd.read_csv("File Path")
+df.head()
 
 {% elif input_type == "pickle" %}
-object = pd.read_pickle("File Path")
-    
+# Input File Path
+df = pd.read_pickle("File Path")
+df.head()
+
 {% endif %}
 
-{{ header("Setup") }}
+
 
 
 {{ header("Preprocessing") }}
@@ -35,10 +39,24 @@ object = pd.read_pickle("File Path")
 from sklearn.model_selection import train_test_split
 
 X = df.drop('target')
-y=df['target']
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0)
+y = df['target']
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 42)
 
 scaler = sklearn.preprocessing.StandardScaler()
+scaler.fit(X_train)
+
+X_train = scaler.transform(X_train)
+X_test = scaler.transform(X_test)
+{% elif scaler_type == "Min Max Scaler" %}
+
+# Set up scaler.
+from sklearn.model_selection import train_test_split
+
+X = df.drop('target')
+y = df['target']
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 42)
+
+scaler = sklearn.preprocessing.MinMaxScaler()
 scaler.fit(X_train)
 
 X_train = scaler.transform(X_train)
@@ -48,7 +66,23 @@ X_test = scaler.transform(X_test)
 
 
 {{ header("Model") }}
+{% if classifier == "Random forest" %}
+from sklearn.ensemble import RandomForestClassifier
+model = RandomForestClassifier(n_estimators=100)
+model.fit(X_train, y_train)
+
+{% endif %}
 
 
+{{ header("Evaluation") }}
 
-{{ header("Training") }}
+{% if "Confusion Matrix" in evaluations  %}
+y_pred = rfc.predict(X_test)
+cnf_matrix = confusion_matrix(y_test,y_pred)
+#Seaborn Visualization
+sns.heatmap(cnf_matrix, annot=True, cmap="YlGnBu",fmt='d')
+plt.ylabel('Actual Label')
+plt.xlabel('Predicted Label')
+
+{% endif %}
+

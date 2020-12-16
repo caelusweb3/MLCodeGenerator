@@ -42,7 +42,7 @@ def show():
 
 
             st.write("## Model")
-            framework = st.multiselect('Choose Classfier',classifier_list)
+            framework = st.selectbox('Choose Classfier',classifier_list)
             inputs["classifier"] = framework
 
             st.write("## Input Type")

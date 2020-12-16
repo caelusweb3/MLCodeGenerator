@@ -9,6 +9,8 @@ import os
 from PIL import Image
 import sidebar
 import utils
+from github import Github
+from dotenv import load_dotenv
 
 image = Image.open('images/code.png')
 
@@ -37,6 +39,28 @@ st.markdown("<br>", unsafe_allow_html=True)
 # Display sidebar and get user inputs.
 inputs = sidebar.show()
 inputs
+
+# Set up github access for "Open in Colab" button.
+load_dotenv()  # load environment variables from .env file
+if os.getenv("GITHUB_TOKEN") and os.getenv("REPO_NAME"):
+    g = Github(os.getenv("GITHUB_TOKEN"))
+    repo = g.get_repo(os.getenv("REPO_NAME"))
+    colab_enabled = True
+
+    def add_to_colab(notebook):
+        """Adds notebook to Colab by pushing it to Github repo and returning Colab link."""
+        notebook_id = str(uuid.uuid4())
+        repo.create_file(
+            f"notebooks/{notebook_id}/generated-notebook.ipynb",
+            f"Added notebook {notebook_id}",
+            notebook,
+        )
+        colab_link = f"http://colab.research.google.com/github/{os.getenv('REPO_NAME')}/blob/main/notebooks/{notebook_id}/generated-notebook.ipynb"
+        return colab_link
+
+
+else:
+    colab_enabled = False
 
 if inputs["task"] == "Classification":
 
@@ -71,12 +95,14 @@ if inputs["task"] == "Classification":
     # needs to create a temporary element, which we don't want to show above.
     if open_colab:
         if colab_enabled:
-            colab_link = add_to_colab(notebook)
-            utils.open_link(colab_link)
+            """
+            Colab feature coming soon :)
+            """
+            #colab_link = add_to_colab(notebook)
+            #utils.open_link(colab_link)
         else:
             colab_error.error(
                 """
-                **Colab support is disabled.** (If you are hosting this: Create a Github 
-                repo to store notebooks and register it via a .env file)
+                Colab feature coming soon :)
                 """
             )
