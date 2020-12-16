@@ -1,5 +1,10 @@
 # MLCodeGenerator
 
+Generate custom template code for sklearn, using a web UI built with streamlit. MLCodeGenerator provides multiple options for preprocessing, model, training, and visualization. It exports to .py, Jupyter Notebook, or Google Colab(not implemented yet). The perfect tool to start your next machine learning project!
+
+<div align="center" style="text-align:center">
+  <h2><a href="https://mlcodegenerator.herokuapp.com">MLCodeGenerator Demo</a></h2>
+</div>
 
 
 [![Star](https://img.shields.io/github/stars/ulgacemre/MLCodeGenerator?style=social)](https://github.com/ulgacemre/MLCodeGenerator)
